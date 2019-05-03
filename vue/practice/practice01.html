@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue ｜ ディレクティブの理解</title>
+</head>
+<style>
+  h2{
+    margin: 50px 0 0 0;
+  }
+  div{
+    border: solid 1px pink;
+  }
+
+  .v-enter-active,.v-leave-active{
+    transition: opacity 1s;
+  }
+  .v-enter,.v-leave-to{
+    opacity: 0;
+  }
+</style>
+<body>
+  <h1>Vue.js ディレクティブの理解</h1>
+
+  <h2>基本メッセージの表示</h2>
+  <small>{{ message }}で、dataのmessageの内容取ってくる</small>
+  <div id="app">
+    <p>{{ message }}</p>
+  </div>
+
+  <h2>v-bind : ディレクティブが初めて要素と紐づいた時に属性に指定された値を入れる</h2>
+  <small>v-bind属性にtitleを指定。dataのmessageの内容取ってくる</small>
+  <div id="app-2">
+    <p v-bind:title="message">
+      マウスを持ってくるとtitle属性に指定したメッセージを表示します
+    </p>
+  </div>
+
+  <h2>v-if : 属性値に指定した値を判定して表示/非表示</h2>
+  <small>v-if名をseen、dataのseenをtrueにすると文字表示・falseにすると文字非表示</small>
+  <div id="app-3">
+    <p v-if="seen">
+      v-if属性にseenプロパティを指定。seenがtrueなのでこのメッセージが表示されています。
+    </p>
+  </div>
+  
+  <h2>v-for : 繰り返し処理</h2>
+  <small>v-for属性にitem in listを指定。listプロパティの中の配列を繰り返して描画</small>
+  <div id="app-4">
+    <p v-for="item in list">
+      {{ item }}
+    </p>
+  </div>
+
+  <h2>v-on : イベント利用</h2>
+  <small>v-on属性のclickにhandleClickを指定。methodsのhandleClickのイベントを実行する。</small>
+  <div id="app-5">
+    <button v-on:click="handleClick">Click</button>
+  </div>
+
+  <h2>v-model : フォーム入力同期</h2>
+  <small>v-model属性にmessageを指定。dataのmessageに登録され、それを表示できる。.numberを付与で数値に。</small>
+  <div id="app-6">
+    <p>{{ message }}</p>
+    <input v-model="message">
+  </div>
+<!-- 
+  <h2>トランジション ※後ほどちゃんと理解する。</h2>
+  <small></small>
+  <div id="app-7">
+    <button v-on:click="show=!show">切り替え</button>
+    <transition>
+      <p v-if="show">Hello Vue.js!</p>
+    </transition>
+  </div> -->
+
+  <script src="js/vue.js"></script>
+  <script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'メッセージを表示！'
+        }
+      })
+
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+          message: 'メッセージを表示！' + new Date().toLocaleString()
+        }
+      })
+
+    var app3 = new Vue({
+        el: '#app-3',
+        data: {
+          seen: true
+        }
+      })
+
+    var app4 = new Vue({
+      el: '#app-4',
+      data: {
+        list: [ 'list1', 'list2', 'list3' ]
+      }
+    })
+
+    var app5 = new Vue({
+      el: "#app-5",
+      methods: {
+        handleClick: function(e){
+          alert(event.target)
+        }
+      }
+    })
+
+    var app6 = new Vue({
+      el: "#app-6",
+      data: {
+        message: '初期メッセージ'
+      }
+    })
+
+    // var app7 = new Vue({
+    //   el: "#app-7",
+    //   data: {
+    //     show: true
+    //   }
+    // })
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue ｜ リストデータの操作</title>
+  <link rel="stylesheet" href="css/practice03.css">
+</head>
+
+<body>
+  <h1>Vue.js リストデータの操作</h1>
+
+  <h2>モンスターが現れた！</h2>
+  <p>剣と魔法を上手く使って、モンスターたちをやっつけよう！</p>
+
+  <div v-bind:class='{ ok: item.hp == 0}' class="clear"><p>クリアしました！！<br>おめでとう！！</p></div>
+
+  <div id="monster">
+    <ul class="monsterList">
+      <li v-for="(item,key) in list" v-on:click="clickAttack(key)">
+         <h3>{{ item.name }}</h3>
+         <p class="weak" v-if='val == item.weak'>弱点！</p>
+         <p><img v-bind:src='item.src' alt="" v-bind:class='{ on: item.hp <= 0}'></p>
+         <p>HP：{{ item.hp }}</p>
+      </li>
+    </ul>
+    <div class="attackList">
+      <input id="attack01" type="radio" name="attack" value="sword" v-model="val">
+      <label for="attack01"><p><img src="img/sword.png" alt=""></p><span>剣</span></label>
+      
+      <input id="attack02" type="radio" name="attack" value="magic" v-model="val">
+      <label for="attack02"><p><img src="img/magic.png" alt=""></p><span>魔法</span></label>
+      
+    </div>
+  </div>
+
+  <div class="method">
+    <h2>制作手順</h2>
+    <ol>
+      <li>配列を用意してモンスターたちを表示する</li>
+      <li>攻撃方法の選択と攻撃のボタンを作る</li>
+      <li>それぞれの弱点によって、攻撃力を変化させて、残り体力を計算する</li>
+      <li>攻撃方法を選択した時に、弱点であるモンスターに目印を表示する</li>
+      <li>体力が0になった場合は黒く&HP表示を0にして、もう攻撃できないようにする</li>
+      <li>全モンスターの体力が0になった時にクリア！と表示する</li>
+    </ol>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/practice03.js"></script>
+</body>
+</html>

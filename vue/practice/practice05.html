@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue ｜ コンポーネント間の通信</title>
+</head>
+<style>
+  h2{
+    margin: 50px 0 0 0;
+  }
+  div{
+    border: solid 1px pink;
+  }
+</style>
+<body>
+  <h1>Vue.js コンポーネント間の通信</h1>
+
+  <h2>コンポーネント定義</h2>
+  <small>Vue.componentで定義してコンポーネントタグを記述すると、templateに記述した内容が反映される。new Vueする前に定義する！</small>
+  <div id="app-1">
+    <my-component></my-component>
+  </div>
+
+  <h2>親子コンポーネント</h2>
+  <small>templateにコンポーネントのタグを書いて、それの定義された内容を表示することもできる</small>
+  <div id="app-2">
+    <comp-child></comp-child>
+  </div>
+
+  <h2>親子コンポーネント データを持たせる</h2>
+  <small>comp-childタグのval属性に指定した値をpropsで受け取り、templateで表示する</small>
+  <div id="app-3">
+    <comp-child val="ひとつめ"></comp-child>  
+    <comp-child val="ふたつめ"></comp-child>
+  </div>
+
+  <h2>コンポーネントの子から親へデータ渡し</h2>
+  <small>$emitで親のonに渡す。渡されたら、親のmethodを発生させる。
+  </small><br>
+  <div id="app-4">
+    <comp-child v-on:childs-event="parentsMethod"></comp-child>
+  </div>
+
+  <h2>コンポーネントのリストレンダリング・データ操作</h2>
+  <small>v-forでコンポーネントを繰り返し表示する。※propsはデータ型を指定して置いたほうがいい。</small><br>
+  <small>コンポーネントのタグに属性を指定し、それをpropsで受け取り、templateやmethodsで利用する。</small>
+  <div id="app-5">
+    <ul>
+      <comp-child v-for="item in list"
+        v-bind:key="item.id" v-bind="item"
+        v-on:attack="handleAttack"
+      ></comp-child2>
+    </ul>
+  </div>
+
+ 
+
+  <script src="js/vue.js"></script>
+  <script>
+    // 1
+    Vue.component('my-component',{
+      template: '<p>コンポーネント定義</p>'
+    })
+    new Vue({ el: '#app-1' })
+
+    // 2
+    Vue.component('my-component',{
+      template: '<comp-child></comp-child>'
+    })
+    Vue.component('comp-child', {
+        template: '<p>templateに、定義されたコンポーネントを書くこともできる</p>'
+      })
+    new Vue({ el: '#app-2' })
+
+    // 3
+    Vue.component('my-component', {
+        template: '<comp-child></comp-child>'
+      })
+    Vue.component('comp-child', {
+      template: '<p>{{ val }}</p>',
+      props: ['val']
+    })
+    new Vue({ el: '#app-3' })
+
+    // 4
+      Vue.component('comp-child', {
+        template: '<button v-on:click="handleClick">イベント発火</button>',
+        methods: {
+          handleClick: function () {
+            this.$emit('childs-event')
+          }
+        }
+      })
+      new Vue({
+        el: '#app-4',
+        methods: {
+          parentsMethod: function () {
+            alert('イベントをキャッチ！')
+          }
+        }
+      })
+
+    // 5
+    Vue.component('comp-child',{
+      template: '<li>{{ name }} HP.{{ hp }} <button v-on:click="doAttack">攻撃する</button></li>',
+      props: { id:Number,name:String,hp:Number },
+      methods: {
+        doAttack: function(){
+          this.$emit('attack',this.id)
+        }
+      }
+    })
+    new Vue({
+      el: '#app-5',
+      data: {
+        list:[
+          { id: 1, name: 'スライム', hp:100 },
+          { id: 2, name: 'ゴブリン', hp: 200 },
+          { id: 3, name: 'ドラゴン', hp: 300 }
+        ]
+      },
+      methods: {
+        handleAttack: function(id){
+          var item = this.list.find(function(el){
+            return el.id === id
+          })
+          if(item !== undefined && item.hp > 0) item.hp -= 10
+        }
+      }
+    })
+
+    
+
+
+
+  </script>
+</body>
+</html>

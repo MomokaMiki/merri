@@ -1,0 +1,80 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+h2,p{
+  text-align: center;
+}
+
+.monsterList{
+  display: flex;
+  width: 800px;
+  margin: 40px auto 0 auto;
+  justify-content: space-between;
+}
+.monsterList li{
+  position: relative;
+  list-style-type: none;
+  text-align: center;
+}
+.monsterList li img{
+  width: 230px;
+}
+.monsterList li img.on{
+  filter: brightness(40%)
+}
+.weak{
+  position: absolute;
+  right: 30px;
+  top: 40px;
+  color: #E88FCC;
+  font-weight: bold;
+}
+
+input[type="radio"]{
+  display: none;
+}
+input[type="radio"]:checked + label{
+  border: solid 1px red;
+}
+.attackList{
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  margin: 30px auto 0 auto;
+  
+}
+.attackList label{
+  display: block;
+  text-align: center;
+  cursor: pointer;
+}
+.attackList img{
+  height: 100px;
+}
+.method{
+  margin-top: 50px;
+}
+.method ol{
+  width: 500px;
+  margin: 0 auto;
+}
+
+.clear{
+  display: flex;
+  justify-content: center;
+  display: none;
+  width: 70%;
+  padding: 30px 0;
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: rgba(230,70,100,0.8);
+}
+.clear p{
+  color: #fff;
+  font-size: 4rem;  
+  font-weight: bold;
+}

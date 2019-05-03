@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue ｜ データ算出・ソート</title>
+  <link rel="stylesheet" href="css/practice04.css">
+</head>
+
+<body>
+  <h1>Vue.js データの検索・算出・ソート</h1>
+
+  <div id="app">
+    <h2>八百屋さん</h2>
+    <p>新鮮な野菜・果物の通販サイト</p>
+
+    <div class="wrap">
+      <p><input v-model.number="budget">円以下に絞り込み</p>
+      <p><input v-model.number="limit">件を表示</p>
+      <p>キーワードで検索：<input v-model="keyword"></p>
+    </div>
+    <p>{{ result.length }} 件中  {{ limited.length }} 件を表示中</p>
+    <button class="btn-change" v-on:click="order=!order" v-bind:class='{on:order}'>安い順に並び替える</button>
+    <div class="vegeList-wrap">
+      <ul class="vegeList">
+        <li v-for="item in limited">
+          <input v-bind:id='item.labelId' type="checkbox" name="vege" v-bind:value='item' v-model="cartIn">
+          <label v-bind:for='item.labelId'>
+          <h3>{{ item.name }}</h3>
+          <p class="vege"><img v-bind:src='item.src' alt=""></p>
+          <p>{{ item.price }}円</p>
+          </label>
+        </li>
+      </ul>
+      <div class="cartWrap">
+        <h3>カート  <span v-if='!cartIn.length == 0'>{{ cartIn.length }}個の商品</span></h3>
+        <table class="cart">
+          <thead>
+            <tr>
+              <th width="200">商品名</th>
+              <th>値段</th>
+            </tr>
+          </thead>
+          <tfoot v-if='!cartIn.length == 0'>
+            <tr>
+              <th>合計金額</th>
+              <th>{{ total }}円</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr v-for="cartItem in cartIn">
+              <td>{{ cartItem.name }}</td>
+              <td>{{ cartItem.price }}円</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="method">
+    <h2>制作手順</h2>
+    <ol>
+      <li>データの一覧を表示する</li>
+      <li>数値入力・キーワード入力欄を作成する</li>
+      <li>キーワード&価格絞り込み＝＞表示件数制限の処理をして表示する</li>
+      <li>チェックボックスを作り、チェックされたものを配列に登録していく</li>
+      <li>チェックされたものをカートに追加して表示していく</li>
+      <li>カートに何かある時は件数表示＆合計金額表示</li>
+    </ol>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/practice04.js"></script>
+</body>
+</html>

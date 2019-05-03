@@ -1,0 +1,86 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+h2,p{
+  text-align: center;
+}
+.vegeList{
+  display: flex;
+  flex-wrap: wrap;
+  width: 1100px;
+  margin: 0 auto;
+}
+.vegeList li{
+  width: 200px;
+  margin: 40px 10px;
+  text-align: center;
+  list-style-type: none;
+}
+.vegeList h3{
+  font-size: 1rem;
+}
+.vege{
+  height: 100px;
+}
+.vegeList li input{
+  display: none;
+}
+.vegeList li input + label{
+  display: block;
+  width: 100%;
+  border: solid 1px #fff;
+  cursor: pointer;
+}
+.vegeList li input:checked + label{
+  border: solid 1px #E88FCC;
+}
+.vegeList li img{
+  height: 100%;
+}
+.method{
+  margin-top: 50px;
+}
+.method ol{
+  width: 500px;
+  margin: 0 auto;
+}
+
+#app > div{
+  display: flex;
+  margin: 0 auto;
+}
+.vegeList-wrap{
+  width: 1200px;
+}
+.cart{
+  width: 280px;
+  margin-right: 20px;
+  border: solid 1px #E88FCC;
+}
+.cart th,
+.cart td{
+  text-align: center;
+}
+tfoot tr{
+  vertical-align: bottom;
+  height: 50px;
+}
+.wrap{
+  flex-direction: column;
+  width: 400px;
+  border: dotted 2px #E88FCC;
+}
+.btn-change{
+  display: block;
+  margin: 0 auto;
+  padding: 6px 10px;
+  border: solid 1px #E88FCC;
+  color: #E88FCC;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btn-change.on{
+  background: #E88FCC;
+  color: #fff;
+}
