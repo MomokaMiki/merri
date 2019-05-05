@@ -103,11 +103,14 @@ var browserSync = require('browser-sync');
 
 gulp.task('sync', function (done) {
   browserSync({
-    server: {
-      baseDir: "./",
-      // ここ変更
-      index: "index.html"
-    }
+    // server だとphp動かない
+    // server: {
+    //   baseDir: "./",
+    //   // ここ変更
+    //   index: "index.php"
+    // }
+
+    proxy: "localhost/Git/study"
   });
   done();
 });
