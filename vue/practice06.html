@@ -7,13 +7,31 @@
   <title>vue ｜ コンポーネントの応用</title>
 </head>
 <style>
+  body{
+    max-width: 800px;
+    margin: 0 auto;
+    background: #f4f3f6;
+  }
   h2{
     margin: 50px 0 0 0;
   }
   div{
-    border: solid 1px pink;
+    border: solid 3px #d1ca83;
   }
-</style>
+  *{
+    color: #74645c;
+  }
+  pre{
+    padding-top: 20px;
+    background: #333;
+    color: #fff;
+  }
+  .v-enter-active,.v-leave-active{
+    transition: opacity 1s;
+  }
+  .v-enter,.v-leave-to{
+    opacity: 0;
+  }</style>
 <body>
   <h1>Vue.js コンポーネントの応用</h1>
 
