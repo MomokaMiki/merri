@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ress.css">
+  <title>ES6 アロー関数</title>
+</head>
+<body>
+  <h1>ES6 アロー関数</h1>
+  <section>
+    <h2>アロー関数で、コードを省略する。</h2>
+    <p>returnで新しい配列にして返してくれる。</p>
+    <pre>
+      // ES5
+      const add = function(a,b){
+        return a + b;
+      }
+
+      // functionを省略できる
+      const add = (a, b) <span class="pink">=></span> {
+        return a + b;
+      }
+
+      // <span class="green">評価項目がひとつしかない場合</span>はreturnを省略できる。(暗黙なreturn)ただし、可読性を重視する。
+      const add = ( a , b ) <span class="pink">=></span> a + b;
+
+      // <span class="green">引数が一つの場合</span>、( ) を省略できる。
+      const double = number <span class="pink">=></span> 2 * number;
+
+      // 引数がない場合は省略できない。
+      const double = () <span class="pink">=></span> 2;
+    </pre>
+  </section>
+  <section>
+    <h2>アロー関数でのthisの処理</h2>
+    <p>アロー関数にしない場合は、コールバック関数で使われるthisは、const宣言されているteamにはならない。<br>ES5では、コールバック関数でthisをbindさせるか、一度thisを変数に入れてあげる。</p>
+    <pre>
+      const <span class="yellow">team</span> = {
+        members : [ '太郎', '花子' ],
+        teamName : 'スーパーチーム',
+        teamSummary : function ( ) {
+
+        // this === team
+        // ここでのthisを、コールバック関数でも使ってくれる
+
+          return <span class="yellow">this</span> . members . map ( ( member ) <span class="pink">=></span> {
+            return ` ${ member } は ${ this . teamName } の所属です。 ` ;
+          } );
+        }
+      };
+
+      team . teamSummary ( );
+      ーーーーー
+      ["太郎はスーパーチームの所属です。","花子はスーパーチームの所属です。"] 
+  
+      </pre>
+  </section>
+</body>
+</html>

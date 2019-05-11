@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ress.css">
+  <title>every/some - 論理積/論理和</title>
+</head>
+<body>
+  <h1>every/some - 論理積/論理和</h1>
+  <section>
+    <h2>everyの使い方</h2>
+    <p>全てが条件にあっているかどうかを判定する</p>
+    <pre>
+      var computers = [
+        { name : 'Apple', ram : 24 },
+        { name : 'Compaq', ram : 4 },
+        { name : 'Acer', ram : 16 }
+      ]
+
+      computers . <span class="sky">every</span> ( function ( computer ) {
+        return computer . ram >= 16;
+      })
+
+      ーーーーー
+      false
+    </pre>  
+  </section>
+  <section>
+    <h2>someの使い方</h2>
+    <p>ひとつでも条件にあっているものがあるかどうか</p>
+    <pre>
+      var computers = [
+        { name : 'Apple', ram : 24 },
+        { name : 'Compaq', ram : 4 },
+        { name : 'Acer', ram : 16 }
+      ]
+      
+      computers . <span class="sky">some</span> ( function ( computer ) {
+        return computer . ram >= 16;
+      })
+      
+      ーーーーー
+      true
+      </pre>
+  </section>
+
+</body>
+</html>

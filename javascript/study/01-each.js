@@ -21,9 +21,9 @@ var numbers = [1, 2, 3, 4, 5];
 var sum = 0;
 
 // 関数を先に定義してもOK
-//function adder( number ){
-//	sum += number;
-//}
+function adder( number ){
+	sum += number;
+}
 
 // 配列の一つ一つの数字を合計に足す
 numbers.forEach(function (number) {

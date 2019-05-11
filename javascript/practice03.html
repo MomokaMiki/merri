@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ress.css">
+  <title>filter - フィルタリング</title>
+</head>
+<body>
+  <h1>filter - フィルタリング</h1>
+  <section>
+    <h2>filterの使い方</h2>
+    <p>returnで、一致するものを返してくれる。</p>
+    <pre>
+      var products = [
+        { name: 'きゅうり', type: '野菜' , price: 14},
+        { name: 'バナナ', type: 'フルーツ', price: 6 },
+        { name: 'セロリ', type: '野菜', price: 20 },
+        { name: 'オレンジ', type: 'フルーツ', price: 25 }
+      ];
+
+      products . <span class="sky">filter</span> ( function ( <span class="green">product</span> ) {
+        return <span class="green">product</span> . type === 'フルーツ' <span class="pink"> && </span> <span class="green">product</span> . price < 10;
+      });
+
+      ーーーーー
+      { name : 'バナナ', type : 'フルーツ' }
+    </pre>
+  </section>
+
+  <section>
+    <h2>関数を作って使ってみる</h2>
+    <p>配列の中から一致するものだけを返してくれる。</p>
+    <pre>
+      var <span class="green">post</span> = { id: 4 , title: '初めての投稿' };
+      var <span class="pink">comments</span> = [
+        { postId: 4 , content: 'コメント１' },
+        { postId: 3 , content: 'コメント２' },
+        { postId: 4 , content: 'コメント３' }
+      ];
+
+      function commentsForPost ( post , comments ) {
+        return comments . <span class="sky">filter</span> ( function ( comment ) {
+          return comment . postId === <span class="green">post</span> . id;
+        });
+      }
+
+      commentsForPost( <span class="green">post</span> , <span class="pink">comments</span> )
+      ーーーーー
+      [{ postId: 4 , content: 'コメント１' },{ postId: 4 , content: 'コメント３' }]
+      </pre>
+  </section>
+
+</body>
+</html>

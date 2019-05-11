@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ress.css">
+  <title>forEach - 繰り返し処理</title>
+</head>
+<body>
+  <h1>forEach - 繰り返し処理</h1>
+  <section>
+    <h2>forEachの使い方</h2>
+    <p>変数の数分処理がされる。</p>
+    <pre>
+      var colors = ['red', 'green', 'blue'];
+
+      colors . <span class="sky">forEach</span> ( function ( color ) {
+        console . log ( color );
+      })
+    </pre>
+  </section>
+
+  <section>
+    <h2>変数の数分、関数を実行する</h2>
+    <p>関数名の後ろに()をつけるとエラーになってしまうので注意。</p>
+    <pre>
+        var numbers = [ 1 , 2 , 3 ];
+        var sum = 0;
+        
+        function <span class="pink">adder</span>( number ){
+          sum += number;
+        }
+        
+        numbers . <span class="sky">forEach</span>( <span class="pink">adder</span> );
+
+        ーーーーー
+        6
+      </pre>
+  </section>
+
+  <section>
+    <h2>forEachのメリット</h2>
+    <p>deleteEmail関数を使って、emailに指定したものを削除<br>簡単にできる！</p>
+    <pre>
+        emails . <span class="sky">forEach</span></span>( function ( email ) {
+          deleteEmail ( email );
+        });
+    </pre>
+  </section>
+
+</body>
+</html>

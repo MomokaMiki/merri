@@ -40,6 +40,7 @@ products.filter(function (product) {
     && product.price < 10;
 })
 
+/////////////////////////////////////////////
 var post = { id: 4, title: '初めての投稿' };
 var comments = [
   { postId: 4, content: 'コメント１' },
@@ -55,6 +56,7 @@ function commentsForPost(post, comments) {
 }
 
 commentsForPost(post, comments)
+/////////////////////////////////////////////
 
 
 // kadai
