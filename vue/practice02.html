@@ -7,11 +7,30 @@
   <title>vue ｜ データの登録・更新</title>
 </head>
 <style>
+  body{
+    max-width: 800px;
+    margin: 0 auto;
+    background: #f4f3f6;
+  }
   h2{
     margin: 50px 0 0 0;
   }
   div{
-    border: solid 1px pink;
+    border: solid 3px #d1ca83;
+  }
+  *{
+    color: #74645c;
+  }
+  pre{
+    padding-top: 20px;
+    background: #333;
+    color: #fff;
+  }
+  .v-enter-active,.v-leave-active{
+    transition: opacity 1s;
+  }
+  .v-enter,.v-leave-to{
+    opacity: 0;
   }
 </style>
 <body>
@@ -23,6 +42,27 @@
     <p>{{ count }}回クリックしたよ</p>
     <button v-on:click="increment">カウント増やす</button>
   </div>
+  <pre>
+    [ HTML ]
+    &lt;div id="app-1">
+      &lt;p>{{ count }}回クリックしたよ&lt;/p>
+      &lt;button v-on:click="increment">カウント増やす&lt;/button>
+    &lt;/div>
+    ーーーーー
+    [ JS ]
+    var app1 = new Vue({
+      el: '#app-1',
+      data:{
+        count: 0
+      },
+      methods: {
+        increment: function(){
+          this.count += 1
+        }
+      }
+    })
+
+  </pre>
 
   <h2>SVGデータバインディング</h2>
   <small>inputにv-model属性を指定し、radiusを指定。radiusプロパティの値をsvgに入れる</small>
@@ -32,6 +72,23 @@
     </svg>
     <input type="range" min="0" max="100" v-model="radius">
   </div>
+  <pre>
+    [ HTML ]
+    &lt;div id="app-2">
+      &lt;svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        &lt;circle cx="100" cy="75" v-bind:r="radius" fill="lightpink" />
+      &lt;/svg>
+      &lt;input type="range" min="0" max="100" v-model="radius">
+    &lt;/div>
+    ーーーーー
+    [ JS ]
+    var app2 = new Vue({
+      el: '#app-2',
+      data:{
+        radius: 50
+      }
+    })
+  </pre>
 
   <script src="js/vue.js"></script>
   <script>
