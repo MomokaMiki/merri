@@ -1,23 +1,8 @@
 // miki taskrunner 2019/5/4
 // gulp => 4.0.0
 
-// srcフォルダ
-// ・imagemin (圧縮したい画像ファイル) => imgファイルへ
-// ・sass (コンパイルするscssファイル) => cssファイルへ
-
-// minフォルダ
-// ・js (圧縮されたjsファイル)
-// ・css (圧縮されたcssファイル)
-
-// gulp v4からは、taskにコールバックを渡さないとエラーが出てしまう
-
 // gulp
 var gulp = require('gulp');
-
-//
-// sassのコンパイル
-// 
-
 // Sass
 var sass = require('gulp-sass');
 // ベンダープレフィックス
@@ -52,12 +37,6 @@ gulp.task('sass',function(done){
   done();
 })
 
-//
-// 画像の圧縮
-// 
-
-// 外部からダウンロードしてきたファイルは圧縮できなかった
-
 // 書き出し先のファイルと比較し、変更がある場合のみ処理
 var changed = require('gulp-changed');
 // 画像圧縮
@@ -76,8 +55,15 @@ gulp.task('imagemin', function (done) {
   gulp.src('./src/imagemin/*.+(jpg|jpeg|png|gif)')
     .pipe(changed('./imagemin'))
     .pipe(imagemin([
-      imageminPng(),
-      imageminJpg(),
+      imageminPng({
+        quality: [.10,.20],
+        speed: 1,
+        floyd: 0
+      }),
+      imageminJpg({
+        quality: 85,
+        progressive: true
+      }),
       imageminGif({
         interlaced: false,
         optimizationLevel: 3,
@@ -93,55 +79,45 @@ gulp.task('imagemin', function (done) {
   done();
 });
 
+// jsファイル結合
+// var concat = require('gulp-concat');
 
-//
-// オートリロード
-//
+// gulp.task('concat', function (done) {
+//   gulp.src(['./src/concat/load.js','./src/concat/works.js','./src/concat/scroll.js', './src/concat/event.js'])
+//     .pipe(plumber())
+//     .pipe(concat('script.js'))
+//     .pipe(gulp.dest('./js/'));
+//   done();
+// });
 
 // 自動的にリロード
 var browserSync = require('browser-sync');
 
 gulp.task('sync', function (done) {
   browserSync({
-    // server だとphp動かない
-    // server: {
-    //   baseDir: "./",
-    //   // ここ変更
-    //   index: "index.php"
-    // }
-
     proxy: "localhost/Git/study"
   });
   done();
 });
 gulp.task('bs-reload', function (done) {
-  browserSync.reload();
+    browserSync.reload();
   done();
 });
 
-
-//
 // ファイル監視
-//
-
-// gulp -v4からは、タスク実行する時に同期処理か非同期処理か明記しないといけない
-
-
 gulp.task('watch',  function (done) {
   gulp.watch("./**/*.html", gulp.series('bs-reload'));
   gulp.watch("./**/*.php", gulp.series('bs-reload'));
   gulp.watch("./src/sass/**/*.scss", gulp.series('sass', 'bs-reload'));
   gulp.watch("./src/imagemin/*", gulp.series('imagemin', 'bs-reload'));
+  // gulp.watch("./src/concat/*.js", gulp.series('concat', 'bs-reload'))
   done();
 });
 
 // gulp を実行で、browserSync立ち上げ + watch実行
-gulp.task('default', gulp.series('sync','watch') );
+// gulp.task('default', gulp.series('sass','imagemin','concat','sync','watch') );
+gulp.task('default', gulp.series('sass','imagemin','sync','watch') );
 
-
-//
-// ファイル圧縮
-//
 
 // JSファイル圧縮
 var uglify = require('gulp-uglify');
@@ -171,11 +147,7 @@ gulp.task('cssmin', function (done) {
   done();
 });
 
-
-//
 // ES6からES5にコンパイル
-//
-
 var babel = require('gulp-babel');
 
 gulp.task('babel', function (done) {
@@ -183,6 +155,6 @@ gulp.task('babel', function (done) {
     .pipe(babel({
       presets: ['@babel/env']
     }))
-    .pipe(gulp.dest('./babel/'));
+    .pipe(gulp.dest('./babel'));
   done();
 });

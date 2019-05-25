@@ -5,183 +5,186 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>vue ｜ コンポーネント間の通信</title>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
-<style>
-  body{
-    max-width: 800px;
-    margin: 0 auto;
-    background: #f4f3f6;
-  }
-  h2{
-    margin: 50px 0 0 0;
-  }
-  div{
-    border: solid 3px #d1ca83;
-  }
-  *{
-    color: #74645c;
-  }
-  pre{
-    padding-top: 20px;
-    background: #333;
-    color: #fff;
-  }
-  .v-enter-active,.v-leave-active{
-    transition: opacity 1s;
-  }
-  .v-enter,.v-leave-to{
-    opacity: 0;
-  }</style>
 <body>
-  <h1>Vue.js コンポーネント間の通信</h1>
+  <main class="main">
+    <h1>Vue.js コンポーネント間の通信</h1>
 
-  <h2>コンポーネント定義</h2>
-  <small>Vue.componentで定義してコンポーネントタグを記述すると、templateに記述した内容が反映される。new Vueする前に定義する！</small>
-  <div id="app-1">
-    <my-component></my-component>
-  </div>
-  <pre>
-    [ HTML ]
-    &lt;div id="app-1">
-      &lt;my-component>&lt;/my-component>
-    &lt;/div>
-    ーーーーー
-    [ JS ]
-    Vue.component('my-component',{
-      template: '&lt;p>コンポーネント定義&lt;/p>'
-    })
-    new Vue({ el: '#app-1' })
-  </pre>
+    <section>
+      <h2>コンポーネント定義</h2>
+      <p>Vue.componentで定義してコンポーネントタグを記述すると、templateに記述した内容が反映される。new Vueする前に定義する！</p>
+      <div id="app-1" class="app-area">
+        <my-component></my-component>
+      </div>
+      <pre>
+        <span class="green">[ HTML ]</span>
 
-  <h2>親子コンポーネント</h2>
-  <small>templateにコンポーネントのタグを書いて、それの定義された内容を表示することもできる</small>
-  <div id="app-2">
-    <comp-child></comp-child>
-  </div>
-  <pre>
-    [ HTML ]
-    &lt;div id="app-2">
-      &lt;comp-child>&lt;/comp-child>
-    &lt;/div>
-    ーーーーー
-    [ JS ]
-    Vue.component('my-component',{
-      template: '&lt;comp-child>&lt;/comp-child>'
-    })
-    Vue.component('comp-child', {
-      template: '&lt;p>templateに、定義されたコンポーネントを書くこともできる&lt;/p>'
-    })
-    new Vue({ el: '#app-2' })
-  </pre>
+        &lt;div id="app-1">
+            <span class="yellow">&lt;my-component>&lt;/my-component></span>
+        &lt;/div>
 
-  <h2>親子コンポーネント データを持たせる</h2>
-  <small>comp-childタグのval属性に指定した値をpropsで受け取り、templateで表示する</small>
-  <div id="app-3">
-    <comp-child val="ひとつめ"></comp-child>  
-    <comp-child val="ふたつめ"></comp-child>
-  </div>
-  <pre>
-    [ HTML ]
-    &lt;div id="app-3">
-      &lt;comp-child val="ひとつめ">&lt;/comp-child>
-      &lt;comp-child val="ふたつめ">&lt;/comp-child>
-    &lt;/div>
-    ーーーーー
-    [ JS ]
-    Vue.component('my-component', {
-      template: '&lt;comp-child>&lt;/comp-child>'
-    })
-    Vue.component('comp-child', {
-      template: '&lt;p>{{ val }}&lt;/p>',
-      props: ['val']
-    })
-    new Vue({ el: '#app-3' })
-  </pre>
+        ーーーーー
 
+        <span class="green">[ JS ]</span>
 
-  <h2>コンポーネントの子から親へデータ渡し</h2>
-  <small>$emitで親のonに渡す。渡されたら、親のmethodを発生させる。
-  </small><br>
-  <div id="app-4">
-    <comp-child v-on:childs-event="parentsMethod"></comp-child>
-  </div>
-  <pre>
-    [ HTML ]
-    &lt;div id="app-4">
-      &lt;comp-child v-on:childs-event="parentsMethod">&lt;/comp-child>
-    &lt;/div>
-    ーーーーー
-    [ JS ]
-      Vue.component('comp-child', {
-        template: '&lt;button v-on:click="handleClick">イベント発火&lt;/button>',
-        methods: {
-          handleClick: function () {
-            this.$emit('childs-event')
-          }
-        }
-      })
-      new Vue({
-        el: '#app-4',
-        methods: {
-          parentsMethod: function () {
-            alert('イベントをキャッチ！')
-          }
-        }
-      })
+        Vue.component('<span class="yellow">my-component</span>',{
+            template: '&lt;p>コンポーネント定義&lt;/p>'
+        })
+        new Vue({ el: '#app-1' })
+      </pre>
+    </section>
 
-  </pre>
+    <section>
+      <h2>親子コンポーネント</h2>
+      <p>templateにコンポーネントのタグを書いて、それの定義された内容を表示することもできる</p>
+      <div id="app-2" class="app-area">
+        <my-component></my-component>
+      </div>
+      <pre>
+        <span class="green">[ HTML ]</span>
 
+        &lt;div id="app-2">
+            <span class="pink">&lt;my-component>&lt;/my-component></span>
+        &lt;/div>
 
-  <h2>コンポーネントのリストレンダリング・データ操作</h2>
-  <small>v-forでコンポーネントを繰り返し表示する。※propsはデータ型を指定して置いたほうがいい。</small><br>
-  <small>コンポーネントのタグに属性を指定し、それをpropsで受け取り、templateやmethodsで利用する。</small>
-  <div id="app-5">
-    <ul>
-      <comp-child v-for="item in list"
-        v-bind:key="item.id" v-bind="item"
-        v-on:attack="handleAttack"
-      ></comp-child2>
-    </ul>
-  </div>
-  <pre>
-    [ HTML ]
-      &lt;div id="app-5">
-        &lt;ul>
-          &lt;comp-child v-for="item in list" v-bind:key="item.id" v-bind="item" v-on:attack="handleAttack">
-            &lt;/comp-child2>
-        &lt;/ul>
-      &lt;/div>
-    ーーーーー
-    [ JS ]
-    Vue.component('comp-child',{
-      template: '&lt;li>{{ name }} HP.{{ hp }} &lt;button v-on:click="doAttack">攻撃する&lt;/button>&lt;/li>',
-      props: { id:Number,name:String,hp:Number },
-      methods: {
-        doAttack: function(){
-          this.$emit('attack',this.id)
-        }
-      }
-    })
-    new Vue({
-      el: '#app-5',
-      data: {
-        list:[
-          { id: 1, name: 'スライム', hp:100 },
-          { id: 2, name: 'ゴブリン', hp: 200 },
-          { id: 3, name: 'ドラゴン', hp: 300 }
-        ]
-      },
-      methods: {
-        handleAttack: function(id){
-          var item = this.list.find(function(el){
-            return el.id === id
+        ーーーーー
+
+        <span class="green">[ JS ]</span>
+
+        Vue.component('<span class="pink">my-component</span>',{
+            template: '<span class="yellow">&lt;comp-child>&lt;/comp-child></span>'
+        })
+        Vue.component('<span class="yellow">comp-child</span>', {
+            template: '&lt;p>templateに、定義されたコンポーネントを書くこともできる&lt;/p>'
+        })
+        new Vue({ el: '#app-2' })
+      </pre>
+    </section>
+
+    <section>
+      <h2>親子コンポーネント データを持たせる</h2>
+      <p>comp-childタグのval属性に指定した値をpropsで受け取り、templateで表示する</p>
+      <div id="app-3" class="app-area">
+        <comp-child val="ひとつめ"></comp-child>  
+        <comp-child val="ふたつめ"></comp-child>
+      </div>
+      <pre>
+        <span class="green">[ HTML ]</span>
+
+        &lt;div id="app-3">
+            <span class="yellow">&lt;comp-child <span class="sky">val="ひとつめ"</span>>&lt;/comp-child></span>
+            <span class="yellow">&lt;comp-child <span class="sky">val="ふたつめ"</span>>&lt;/comp-child></span>
+        &lt;/div>
+
+        ーーーーー
+
+        <span class="green">[ JS ]</span>
+
+        Vue.component('my-component', {
+            template: '<span class="yellow">&lt;comp-child>&lt;/comp-child></span>'
+        })
+        Vue.component('comp-child', {
+            template: '&lt;p>{{ <span class="sky">val</span> }}&lt;/p>',
+            props: ['<span class="sky">val</span>']
+        })
+        new Vue({ el: '#app-3' })
+      </pre>
+    </section>
+
+    <section>
+      <h2>コンポーネントの子から親へデータ渡し</h2>
+      <p>$emitで親のonに渡す。渡されたら、親のmethodを発生させる。
+      </p><br>
+      <div id="app-4" class="app-area">
+        <comp-child v-on:childs-event="parentsMethod"></comp-child>
+      </div>
+      <pre>
+        <span class="green">[ HTML ]</span>
+
+        &lt;div id="app-4">
+            &lt;comp-child <span class="sky">v-on</span>:<span class="yellow">childs-event</span>="<span class="pink">parentsMethod</span>">&lt;/comp-child>
+        &lt;/div>
+
+        ーーーーー
+
+        <span class="green">[ JS ]</span>
+
+          Vue.component('comp-child', {
+              template: '&lt;button <span class="sky">v-on</span>:click="handleClick">イベント発火&lt;/button>',
+              methods: {
+                  handleClick: function () {
+                      this.$emit('<span class="yellow">childs-event</span>')
+                  }
+              }
           })
-          if(item !== undefined && item.hp > 0) item.hp -= 10
-        }
-      }
-    })
+          new Vue({
+              el: '#app-4',
+                  methods: {
+                      <span class="pink">parentsMethod</span>: function () {
+                      alert('イベントをキャッチ！')
+                  }
+              }
+          })
+      </pre>
+    </section>
 
-  </pre>
+    <section>
+      <h2>コンポーネントのリストレンダリング・データ操作</h2>
+      <p>v-forでコンポーネントを繰り返し表示する。※propsはデータ型を指定して置いたほうがいい。</p><br>
+      <p>コンポーネントのタグに属性を指定し、それをpropsで受け取り、templateやmethodsで利用する。</p>
+      <div id="app-5" class="app-area">
+        <ul>
+          <comp-child v-for="item in list"
+            v-bind:key="item.id" v-bind="item"
+            v-on:attack="handleAttack"
+          ></comp-child2>
+        </ul>
+      </div>
+      <pre>
+        <span class="green">[ HTML ]</span>
+
+          &lt;div id="app-5">
+              &lt;ul>
+                  &lt;comp-child v-for="item in list" v-bind:key="item.id" v-bind="item" v-on:attack="<span class="yellow">handleAttack</span>">
+                  &lt;/comp-child2>
+              &lt;/ul>
+          &lt;/div>
+
+        ーーーーー
+
+        <span class="green">[ JS ]</span>
+
+        Vue.component('comp-child',{
+            template: '&lt;li>{{ name }} HP.{{ hp }} &lt;button v-on:click="<span class="pink">doAttack</span>">攻撃する&lt;/button>&lt;/li>',
+            props: { id:Number,name:String,hp:Number },
+                methods: {
+                    <span class="sky">doAttack</span>: function(){
+                        this.$emit('attack',<span class="yellow">this.id</span>)
+                    }
+                }
+        })
+        new Vue({
+            el: '#app-5',
+            data: {
+                list:[
+                    { id: 1, name: 'スライム', hp:100 },
+                    { id: 2, name: 'ゴブリン', hp: 200 },
+                    { id: 3, name: 'ドラゴン', hp: 300 }
+                ]
+            },
+            methods: {
+                <span class="sky">handleAttack</span>: function(id){
+                    var item = this.list.find(function(el){
+                        return el.id === <span class="yellow">id</span>
+                    })
+                    if(item !== undefined && item.hp > 0) item.hp -= 10
+                }
+            }
+        })
+      </pre>
+    </section>
+  </main>
 
 
  
@@ -265,5 +268,8 @@
 
 
   </script>
+  <script type="text/javascript" src="//typesquare.com/3/tsad/script/ja/typesquare.js?5b49521a4774449c972b1df2e90393a3"
+      charset="utf-8"></script>
+
 </body>
 </html>

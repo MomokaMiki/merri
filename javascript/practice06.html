@@ -4,82 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ress.css">
+  <link rel="stylesheet" href="../css/style.css">
   <title>reduce - 値を集約する</title>
 </head>
 <body>
-  <h1>reduce - 値を集約する</h1>
-  <section>
-    <h2>reduceの使い方</h2>
-    <p>returnしたのを次のコールバック関数に入れていく。<br>初期値を指定する。</p>
-    <pre>
-      var primaryColors = [
-        { color : 'red' },
-        { color : 'yellow' },
-        { color : 'blue' }
-      ]
+  <main class="main">
+    <h1>reduce - 値を集約する</h1>
+    <section>
+      <h2>reduceの使い方</h2>
+      <p>returnしたのを次のコールバック関数に入れていく。<br>初期値を指定する。</p>
+      <pre>
+        var primaryColors = [
+          { color : 'red' },
+          { color : 'yellow' },
+          { color : 'blue' }
+        ]
 
-      primaryColors . <span class="sky">reduce</span> ( function ( <span class="green">prev</span>, primaryColor ) {
-        <span class="green">prev</span> . push( primaryColor . color )
-        return prev;
-      }, <span class="pink">[ ]</span> );      
-      
-      ーーーーー
-      [ "red" , "yellow" , "blue" ] 
-    </pre>
-  </section>
-  <section>
-    <h2>関数を作って使ってみる。</h2>
-    <p>()の形が均等かどうかを判定する。<br>!をつけることによって、0がtrueになる。</p>
-    <pre>
-      function balancedParens ( <span class="green">string</span> ) {
-        return ! string . split ( '' ) . <span class="sky">reduce</span> ( function ( prev , char ) {
-          if ( prev < 0) { return prev }
-          if ( char === '(' ) { return prev + 1 }
-          if ( char === ')' ) { return prev - 1 }
-        }, <span class="pink">0</span> ) 
-      }
-
-      balancedParens ( <span class="green">')('</span> );
-
-      ーーーーー
-      false (本当は-1)
+        primaryColors . <span class="sky">reduce</span> ( function ( <span class="green">prev</span>, primaryColor ) {
+          <span class="green">prev</span> . push( primaryColor . color )
+          return prev;
+        }, <span class="pink">[ ]</span> );      
+        
+        ーーーーー
+        [ "red" , "yellow" , "blue" ] 
       </pre>
-  </section>
-  <section>
-    <h2>複数の初期値</h2>
-    <p>初期値がオブジェクトの場合は、returnも同じオブジェクトの形で返してあげる。</p>
-    <pre>
-      var desks = [
-        { type : 'sitting' },
-        { type : 'standing' },
-        { type : 'sitting' },
-        { type : 'sitting' },
-        { type : 'standing' }
-      ];
-      
-      var deskTypes = desks . <span class="sky">reduce</span> ( function ( prev , desk ) {
-        if ( desk . type == 'sitting' ) {
-          return <span class="yellow">{
-            sitting : prev . sitting + 1,
-            standing : prev . standing
-          }</span>
+    </section>
+    <section>
+      <h2>関数を作って使ってみる。</h2>
+      <p>()の形が均等かどうかを判定する。<br>!をつけることによって、0がtrueになる。</p>
+      <pre>
+        function balancedParens ( <span class="green">string</span> ) {
+          return ! string . split ( '' ) . <span class="sky">reduce</span> ( function ( prev , char ) {
+            if ( prev < 0) { return prev }
+            if ( char === '(' ) { return prev + 1 }
+            if ( char === ')' ) { return prev - 1 }
+          }, <span class="pink">0</span> ) 
         }
-        if ( desk . type == 'standing' ) {
-          return <span class="yellow">{
-            sitting : prev . sitting,
-            standing : prev . standing + 1
-          }</span>
-        }
-      }, <span class="pink">{ sitting : 0 , standing : 0 }</span> );
 
-      ーーーーー
-      { sitting : 3 , standing : 2 }
-      </pre>
-  </section>
+        balancedParens ( <span class="green">')('</span> );
 
+        ーーーーー
+        false (本当は-1)
+        </pre>
+    </section>
+    <section>
+      <h2>複数の初期値</h2>
+      <p>初期値がオブジェクトの場合は、returnも同じオブジェクトの形で返してあげる。</p>
+      <pre>
+        var desks = [
+          { type : 'sitting' },
+          { type : 'standing' },
+          { type : 'sitting' },
+          { type : 'sitting' },
+          { type : 'standing' }
+        ];
+        
+        var deskTypes = desks . <span class="sky">reduce</span> ( function ( prev , desk ) {
+          if ( desk . type == 'sitting' ) {
+            return <span class="yellow">{
+              sitting : prev . sitting + 1,
+              standing : prev . standing
+            }</span>
+          }
+          if ( desk . type == 'standing' ) {
+            return <span class="yellow">{
+              sitting : prev . sitting,
+              standing : prev . standing + 1
+            }</span>
+          }
+        }, <span class="pink">{ sitting : 0 , standing : 0 }</span> );
 
+        ーーーーー
+        { sitting : 3 , standing : 2 }
+        </pre>
+    </section>
+  </main> 
+  <script type="text/javascript" src="//typesquare.com/3/tsad/script/ja/typesquare.js?5b49521a4774449c972b1df2e90393a3"
+    charset="utf-8"></script>
 
 </body>
 </html>

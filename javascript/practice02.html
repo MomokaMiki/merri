@@ -4,45 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ress.css">
+  <link rel="stylesheet" href="../css/style.css">
   <title>map - 新しく配列を作る</title>
 </head>
 <body>
-  <h1>map - 新しく配列を作る</h1>
-  <section>
-    <h2>mapの使い方</h2>
-    <p>returnで新しい配列にして返してくれる。</p>
-    <pre>
-      var numbers = [1,2,3];
+  <main class="main">
+    <h1>map - 新しく配列を作る</h1>
+    <section>
+      <h2>mapの使い方</h2>
+      <p>returnで新しい配列にして返してくれる。</p>
+      <pre>
+        var numbers = [1,2,3];
 
-      var doubles = numbers . <span class="sky">map</span> ( function ( number ){
-        return number * 2;
-      });
-
-      ーーーーー
-      [ 2 , 4 , 6 ]
-    </pre>
-  </section>
-
-  <section>
-    <h2>関数を作って使ってみる</h2>
-    <p>関数のpropertyに指定した、colorだけが新たな配列に入って返ってくる。</p>
-    <pre>
-      var paints = [{ color: '赤', fruit: 'apple' }, { color: 'オレンジ', fruit: 'orange' }, { color: '黄', fruit: 'remon' }];
-
-      function pluck ( <span class="yellow">array</span> , <span class="pink">property</span> ){
-        return <span class="yellow">array</span> . <span class="sky">map</span> ( function ( arr ) {
-          return arr [ <span class="pink">property</span> ]
+        var doubles = numbers . <span class="sky">map</span> ( function ( number ){
+          return number * 2;
         });
-      }
 
-      pluck ( <span class="yellow">paints</span> , ' <span class="pink">color</span> ' );
-
-      ーーーーー
-      [ '赤' , 'オレンジ' , '黄 ]
+        ーーーーー
+        [ 2 , 4 , 6 ]
       </pre>
-  </section>
+    </section>
 
+    <section>
+      <h2>関数を作って使ってみる</h2>
+      <p>関数のpropertyに指定した、colorだけが新たな配列に入って返ってくる。</p>
+      <pre>
+        var paints = [{ color: '赤', fruit: 'apple' }, { color: 'オレンジ', fruit: 'orange' }, { color: '黄', fruit: 'remon' }];
+
+        function pluck ( <span class="yellow">array</span> , <span class="pink">property</span> ){
+          return <span class="yellow">array</span> . <span class="sky">map</span> ( function ( arr ) {
+            return arr [ <span class="pink">property</span> ]
+          });
+        }
+
+        pluck ( <span class="yellow">paints</span> , ' <span class="pink">color</span> ' );
+
+        ーーーーー
+        [ '赤' , 'オレンジ' , '黄 ]
+        </pre>
+    </section>
+  </main>
+  <script type="text/javascript" src="//typesquare.com/3/tsad/script/ja/typesquare.js?5b49521a4774449c972b1df2e90393a3" charset="utf-8"></script>
 </body>
 </html>

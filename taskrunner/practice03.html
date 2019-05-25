@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>gulp</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="main">
+    <h1>gulpを使ってタスクランナーを作成する</h1>
+    <section>
+      <h2>タスク一覧</h2>
+      <ol>
+        <li>Sass</li>
+        <li>画像圧縮</li>
+        <li>オートリロード</li>
+        <li>JSファイル結合</li>
+        <li>まとめて実行するタスク</li>
+        <li>ファイル監視</li>
+        <li>ファイル圧縮</li>
+      </ol>
+    </section>
+    <section>
+      <h2>gulpを呼び出す</h2>
+      <p>gulpを使用するのでまずはgulpを呼び出します。</p>
+      <pre>
+        var gulp = require('gulp');
+      </pre>
+    </section>
+    
+    <section>
+      <h2>1.Sass</h2>
+      <p>src&nbsp;>&nbsp;sassフォルダ内のファイルをコンパイルし、cssフォルダに出力します。</p>
+      <pre>
+        <span class="green">[ gulpfile.js ]</span>
+
+        <span class="com">// Sassでコンパイル</span>
+        var sass = require('gulp-sass');
+        <span class="com">// ベンダープレフィックス</span>
+        var autoprefixer = require("gulp-autoprefixer");
+        <span class="com">// CSSメディアクエリーを整理</span>
+        var gcmq = require('gulp-group-css-media-queries');
+        <span class="com">// ソースマップを付与</span>
+        var sourcemaps = require("gulp-sourcemaps");
+        <span class="com">// 親scssファイルもコンパイル</span>
+        var progeny = require("gulp-progeny");
+        <span class="com">// エラーを通知する</span>
+        var notify = require("gulp-notify");
+        <span class="com">// エラーでタスクの実行を止めないように</span>
+        var plumber = require('gulp-plumber');
+        
+        <span class="com">// Sassのタスク</span>
+        gulp.task('<span class="sky">sass</span>',function(done){
+          <span class="com">// コンパイルするファイルを指定</span>
+          gulp.src('./src/sass/**/*.scss')
+          <span class="com">// expandedが一番馴染みのある形にコンパイルされます。( 4種類あります )</span>
+          .pipe(sass({
+            outputStyle:'<span class="pink">expanded</span>'
+          }))
+          <span class="com">// ソースマップを作成</span>
+          .pipe(<span class="yellow">sourcemaps</span>.init())
+          <span class="com">// エラーでタスクを止めない</span>
+          .pipe(<span class="yellow">plumber</span>({
+          errorHandler: notify.onError('Error: <%= error.message %>')
+          }))
+          <span class="com">// 親のsassファイルもコンパイルする</span>
+          .pipe(<span class="yellow">progeny</span>())
+          <span class="com">// ベンダープレフィックスを付与</span>
+          .pipe(<span class="yellow">autoprefixer</span>({
+            browsers: ['last 2 version', 'iOS >= 8.1', 'Android >= 4.4']
+          }))
+          <span class="com">// メディアクエリを整理</span>
+          .pipe(<span class="yellow">gcmq</span>())
+          <span class="com">// ソースマップを書き出す</span>
+          .pipe(<span class="yellow">sourcemaps</span>.write())
+          <span class="com">// 出力するフォルダ先を指定</span>
+          .pipe(gulp.dest('./css/'))
+          <span class="com">// 実行</span>
+          done();
+        })
+      </pre>
+    </section>
+
+    <section>
+      <h2>2.画像圧縮</h2>
+      <p>src > imageminフォルダ内のファイルを圧縮し、imgフォルダに出力します。</p>
+      <pre>
+        <span class="green">[ gulpfile.js ]</span>
+
+        <span class="com">// 書き出し先のファイルと比較し、変更がある場合のみ処理</span>
+        var changed = require('gulp-changed');
+        <span class="com">// 画像圧縮</span>
+        var imagemin = require('gulp-imagemin');
+        <span class="com">// jpgファイル</span>
+        var imageminJpg = require('imagemin-jpeg-recompress');
+        <span class="com">// pngファイル</span>
+        var imageminPng = require('imagemin-pngquant');
+        <span class="com">// gifファイル</span>
+        var imageminGif = require('imagemin-gifsicle');
+        <span class="com">// svgファイル</span>
+        var svgmin = require('gulp-svgmin');
+        
+        <span class="com">// 画像圧縮のタスク imageminを作成</span>
+        gulp.task('<span class="sky">imagemin</span>', function (done) {
+          <span class="com">// 圧縮するファイルを選択</span>
+          gulp.src('./src/imagemin/*.+(jpg|jpeg|png|gif)')
+          <span class="com">// フォルダ内が変わっていないか</span>
+          .pipe(<span class="yellow">changed</span>('./imagemin'))
+          .pipe(<span class="yellow">imagemin</span>([
+            <span class="com">pngファイル</span>
+            <span class="yellow">imageminPng</span>({
+              quality: [.10,.20],
+              speed: 1,
+              floyd: 0
+            }),
+            <span class="com">jpgファイル</span>
+            <span class="yellow">imageminJpg</span>({
+              quality: 85,
+              progressive: true
+            }),
+            <span class="com">gifファイル</span>
+            <span class="yellow">imageminGif</span>({
+              interlaced: false,
+              optimizationLevel: 3,
+              colors: 180
+            })
+          ]))
+          <span class="com">書き出す</span>
+          .pipe(gulp.dest('./img/'));
+
+          <span class="com">// svgファイル</span>
+          gulp.src('./src/imagemin/*.+(svg)')
+            .pipe(changed('./imagemin'))
+            .pipe(<span class="yellow">svgmin</span>())
+            .pipe(gulp.dest('./img/'));
+          <span class="com">// 実行する</span>
+          done();
+        });
+      </pre>
+    </section>
+
+    <section>
+      <h2>3.オートリロード</h2>
+      <p>自動でブラウザを立ち上げて、それをリロードしてくれるタスク<br>
+        ターミナルに表示されたIPアドレスでスマホブラウザでも連携して表示することが可能。</p>
+      <pre>
+        <span class="green">[ gulpfile.js ]</span>
+
+        <span class="com">// ブラウザシンク</span>
+        var browserSync = require('browser-sync');
+        
+        <span class="com">// 表示させる場所(ファイル)を指定</span>
+        gulp.task('<span class="sky">sync</span>', function (done) {
+          <span class="yellow">browserSync</span>({
+            proxy: "localhost/Git/portfolio"
+          });
+          <span class="com">// 実行</span>
+          done();
+        });
+
+        <span class="com">// ブラウザをリロードする</span>
+        gulp.task('<span class="sky">bs-reload</span>', function (done) {
+          <span class="yellow">browserSync</span>.<span class="pink">reload</span>();
+          done();
+        });
+      </pre>
+    </section>
+
+    <section>
+      <h2>4.JSファイル結合</h2>
+      <p>src > concatフォルダ内のファイルを結合して、jsフォルダ内に出力します。</p>
+      <pre>
+        <span class="com">// jsファイル結合</span>
+        var concat = require('gulp-concat');
+        
+        gulp.task('<span class="sky">concat</span>', function (done) {
+          <span class="com">// 結合する順番をしていできる</span>
+          gulp.src(['./src/concat/load.js','./src/concat/works.js','./src/concat/scroll.js', './src/concat/event.js'])
+          .pipe(<span class="yellow">plumber</span>())
+          .pipe(<span class="yellow">concat</span>('script.js'))
+          <span class="com">// jsフォルダに出力</span>
+          .pipe(gulp.dest('./js/'));
+          <span class="com">// 実行</span>
+          done();
+        });
+      </pre>
+    </section>
+
+    <section>
+      <h2>5.まとめて実行するタスク</h2>
+      <p>browserSync立ち上げ + watch実行するタスク<br>watchとsyncは走らせると常に起動するので、二つを一つのタスクで走らせることでどちらも継続して走らせることができます。</p>
+      <pre>
+        <span class="com">// 「gulp」 を実行して、複数のタスクを実行するタスク</span>
+        gulp.task('<span class="sky">default</span>', gulp.series('<span class="sky">sass</span>','<span class="sky">imagemin</span>','<span class="sky">concat</span>','<span class="sky">sync</span>','<span class="sky">watch</span>') );
+      </pre>
+    </section>
+
+    <section>
+      <h2>6.ファイル監視</h2>
+      <p>ファイルが保存された時に実行するタスク</p>
+      <pre>
+        <span class="green">[ gulpfile.js ]</span>
+
+        <span class="com">// watchタスクを作成</span>
+        gulp.task('<span class="sky">watch</span>', function (done) {
+          <span class="com">// html,php,sass,画像ファイルが変更された時に、それぞれのタスクを実行する</span>
+          gulp.<span class="yellow">watch</span>("./**/*.html", gulp.series('bs-reload'));
+          gulp.<span class="yellow">watch</span>("./**/*.php", gulp.series('bs-reload'));
+          gulp.<span class="yellow">watch</span>("./src/sass/**/*.scss", gulp.series('sass', 'bs-reload'));
+          gulp.<span class="yellow">watch</span>("./src/imagemin/*", gulp.series('imagemin', 'bs-reload'));
+          done();
+        });
+      </pre>
+    </section>
+
+    <section>
+      <h2>7.ファイル圧縮</h2>
+      <p>css,jsフォルダの中のファイルを圧縮し、minフォルダ内に出力する</p>
+      <pre>
+        <span class="sky">[ gulpfile.js ]</span>
+
+        <span class="com">// JSファイル圧縮</span>
+        var uglify = require('gulp-uglify');
+        <span class="com">// CSSファイル圧縮</span>
+        var cleanCSS = require('gulp-clean-css');
+        <span class="com">// ファイル名変更</span>
+        var rename = require('gulp-rename');
+        
+        <span class="com">// JSファイルの圧縮タスク</span>
+        gulp.task("<span class="sky">jsmin</span>", function (done) {
+          <span class="com">// jsフォルダのjsファイルを圧縮</span>
+          gulp.src('./js/*.js')
+          <span class="com">// エラー時タスク止めない</span>
+          .pipe(<span class="yellow">plumber</span>())
+          <span class="com">// jsファイル圧縮</span>
+          .pipe(<span class="yellow">uglify</span>())
+          <span class="com">// 圧縮後ファイル名に拡張子を付与</span>
+          .pipe(<span class="yellow">rename</span>({
+            <span class="pink">extname</span>: '.min.js'
+          }))
+          <span class="com">// min > jsフォルダ内に出力</span>
+          .pipe(gulp.dest('./min/js'));
+          <span class="com">// タスクを実行</span>
+          done();
+        });
+        
+        <span class="com">// CSSファイルの圧縮タスク</span>
+        gulp.task('<span class="sky">cssmin</span>', function (done) {
+          <span class="com">// cssフォルダ内のcssファイルを圧縮</span>
+          gulp.src("./css/*.css")
+          <span class="com">// cssファイル圧縮</span>
+          .pipe(<span class="yellow">cleanCSS</span>())
+          <span class="com">// 圧縮後ファイル名に拡張子を付与</span>
+          .pipe(<span class="yellow">rename</span>({
+            <span class="pink">extname</span>: '.min.css'
+          }))
+          <span class="com">// min > cssフォルダ内に出力</span>
+          .pipe(gulp.dest('./min/css/'));
+          <span class="com">// タスクを実行</span>
+          done();
+        });
+      </pre>
+    </section>
+  </main>
+
+  <script type="text/javascript" src="//typesquare.com/3/tsad/script/ja/typesquare.js?5b49521a4774449c972b1df2e90393a3"
+    charset="utf-8"></script>
+</body>
+</html>

@@ -5,53 +5,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ress.css">
+  <link rel="stylesheet" href="../css/style.css">
   <title>Node.jsの基本・使い方</title>
 </head>
 
 <body>
+  <main class="main">
   <h1>Node.jsの基本・使い方</h1>
-  <section>
-    <h2>Node.jsとは</h2>
-    <p>
-      JavaScriptは、ブラウザで動く。それに対しNode.jsはサーバーにもいくことができる。<br>
-      今まではサーバーとブラウザで違う言語を使うしかなかったが、Node.jsであれば全部一緒にできる。<br>
-      Node.js で動く便利なパッケージを集めている npm があり、その中に gulp などがある。<br>
-      <br>
-      nodeのコアモジュールのドキュメントは => <a href="https://nodejs.org/api/">https://nodejs.org/api/</a><br>
-      コアモジュールを選択すると、その中のプロパティやメソッドが出てくる。<br>
-      例：File System > fs.appendFile(path, data[, options], callback)
-    </p>
-  </section>
+    <section>
+      <h2>Node.jsとは</h2>
+      <p>
+        JavaScriptは、ブラウザで動く。それに対しNode.jsはサーバーにもいくことができる。<br>
+        今まではサーバーとブラウザで違う言語を使うしかなかったが、Node.jsであれば全部一緒にできる。<br>
+        Node.js で動く便利なパッケージを集めている npm があり、その中に gulp などがある。<br>
+        <br>
+        nodeのコアモジュールのドキュメントは => <a href="https://nodejs.org/api/">https://nodejs.org/api/</a><br>
+        コアモジュールを選択すると、その中のプロパティやメソッドが出てくる。<br>
+        例：File System > fs.appendFile(path, data[, options], callback)
+      </p>
+    </section>
 
-  <section>
-    <h2>使い方</h2>
-    <p>初期化すると、Package.jsonが作成される。<br>npmからパッケージをインストールするなら必要なファイル。</p>
-    <pre>
-      $ npm init
-    </pre>
-    <p>gruntをインストール。—save => Package.jsonに自動的に書かれる。</p>
-    <pre>
-      $ npm install grunt —save;
-    </pre>
-    <p>node側のコンソール。ブラウザではなく、サーバー側なので、windowはない</p>
-    <pre>
-      $ node
-    </pre>
-    <p>ファイルを動かす(拡張子いらない)</p>
-    <pre>
-      $ node app
-    </pre>
-    <p>ファイルを自動で再起動する、nodemonをインストール</p>
-    <pre>
-      $ sudo npm install nodemon -g
-    </pre>
-    <p>nodemonを実行</p>
-    <pre>
-      $ nodemon app.js
-    </pre>
-  </section>
+    <section class="desc-node">
+      <h2>使い方</h2>
+      <p>初期化すると、Package.jsonが作成される。<br>npmからパッケージをインストールするなら必要なファイル。</p>
+      <pre>
+        $ npm init
+      </pre>
+      <p>gruntをインストール。—save => Package.jsonに自動的に書かれる。</p>
+      <pre>
+        $ npm install grunt —save;
+      </pre>
+      <p>node側のコンソール。ブラウザではなく、サーバー側なので、windowはない</p>
+      <pre>
+        $ node
+      </pre>
+      <p>ファイルを動かす(拡張子いらない)</p>
+      <pre>
+        $ node app
+      </pre>
+      <p>ファイルを自動で再起動する、nodemonをインストール</p>
+      <pre>
+        $ sudo npm install nodemon -g
+      </pre>
+      <p>nodemonを実行</p>
+      <pre>
+        $ nodemon app.js
+      </pre>
+    </section>
+  </main>
+    <script type="text/javascript" src="//typesquare.com/3/tsst/script/ja/typesquare.js?5b49521a4774449c972b1df2e90393a3"></script>
+
 </body>
-
 </html>

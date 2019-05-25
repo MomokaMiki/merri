@@ -5,90 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>vue ｜ データの登録・更新</title>
+  <link rel="stylesheet" href="../css/style.css">
+
 </head>
-<style>
-  body{
-    max-width: 800px;
-    margin: 0 auto;
-    background: #f4f3f6;
-  }
-  h2{
-    margin: 50px 0 0 0;
-  }
-  div{
-    border: solid 3px #d1ca83;
-  }
-  *{
-    color: #74645c;
-  }
-  pre{
-    padding-top: 20px;
-    background: #333;
-    color: #fff;
-  }
-  .v-enter-active,.v-leave-active{
-    transition: opacity 1s;
-  }
-  .v-enter,.v-leave-to{
-    opacity: 0;
-  }
-</style>
 <body>
-  <h1>Vue.js データの登録・更新</h1>
+  <main class="main">
+    <h1>Vue.js データの登録・更新</h1>
 
-  <h2>データの更新</h2>
-  <small>incrementメソッドでカウントを増やす処理をする。それをv-on属性で指定する。</small>
-  <div id="app-1">
-    <p>{{ count }}回クリックしたよ</p>
-    <button v-on:click="increment">カウント増やす</button>
-  </div>
-  <pre>
-    [ HTML ]
-    &lt;div id="app-1">
-      &lt;p>{{ count }}回クリックしたよ&lt;/p>
-      &lt;button v-on:click="increment">カウント増やす&lt;/button>
-    &lt;/div>
-    ーーーーー
-    [ JS ]
-    var app1 = new Vue({
-      el: '#app-1',
-      data:{
-        count: 0
-      },
-      methods: {
-        increment: function(){
-          this.count += 1
-        }
-      }
-    })
+    <section>
+      <h2>データの更新</h2>
+      <p>incrementメソッドでカウントを増やす処理をする。それをv-on属性で指定する。</p>
+      <div id="app-1" class="app-area">
+        <p>{{ count }}回クリックしたよ</p>
+        <button v-on:click="increment">カウント増やす</button>
+      </div>
+      <pre>
+        <span class="green">[ HTML ]</span>
 
-  </pre>
+        &lt;div id="app-1">
+            &lt;p>{{ <span class="yellow">count</span> }}回クリックしたよ&lt;/p>
+            &lt;button <span class="sky">v-on</span>:click="<span class="pink">increment</span>">カウント増やす&lt;/button>
+        &lt;/div>
 
-  <h2>SVGデータバインディング</h2>
-  <small>inputにv-model属性を指定し、radiusを指定。radiusプロパティの値をsvgに入れる</small>
-  <div id="app-2">
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-      <circle cx="100" cy="75" v-bind:r="radius" fill="lightpink"/>
-    </svg>
-    <input type="range" min="0" max="100" v-model="radius">
-  </div>
-  <pre>
-    [ HTML ]
-    &lt;div id="app-2">
-      &lt;svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-        &lt;circle cx="100" cy="75" v-bind:r="radius" fill="lightpink" />
-      &lt;/svg>
-      &lt;input type="range" min="0" max="100" v-model="radius">
-    &lt;/div>
-    ーーーーー
-    [ JS ]
-    var app2 = new Vue({
-      el: '#app-2',
-      data:{
-        radius: 50
-      }
-    })
-  </pre>
+        ーーーーー
+
+        [ JS ]
+
+        var app1 = new Vue({
+            el: '#app-1',
+            data:{
+                <span class="yellow">count</span>: 0
+            },
+            methods: {
+                <span class="pink">increment</span>: function(){
+                    this.count += 1
+                }
+            }
+        })
+      </pre>
+    </section>
+
+    <section>
+      <h2>SVGデータバインディング</h2>
+      <p>inputにv-model属性を指定し、radiusを指定。radiusプロパティの値をsvgに入れる</p>
+      <div id="app-2" class="app-area">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <circle cx="100" cy="75" v-bind:r="radius" fill="lightpink"/>
+        </svg>
+        <input type="range" min="0" max="100" v-model="radius">
+      </div>
+      <pre>
+        <span class="green">[ HTML ]</span>
+
+        &lt;div id="app-2">
+            &lt;svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                &lt;circle cx="100" cy="75" v-bind:r="radius" fill="lightpink" />
+            &lt;/svg>
+            &lt;input type="range" min="0" max="100" <span class="sky">v-model</span>="<span class="yellow">radius</span>">
+        &lt;/div>
+
+        ーーーーー
+
+        <span class="green">[ JS ]</span>
+
+        var app2 = new Vue({
+            el: '#app-2',
+            data:{
+                <span class="yellow">radius</span>: 50
+            }
+        })
+      </pre>
+  </main>
 
   <script src="js/vue.js"></script>
   <script>
@@ -112,5 +99,8 @@
     })
 
   </script>
+    <script type="text/javascript" src="//typesquare.com/3/tsad/script/ja/typesquare.js?5b49521a4774449c972b1df2e90393a3"
+      charset="utf-8"></script>
+
 </body>
 </html>

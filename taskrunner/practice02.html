@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>gulp</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="main">
+    <h1>gulpの基本・使い方</h1>
+    <section>
+      <h2>gulpを使えるようにする手順</h2>
+      <ol class="desc-list">
+        <li>
+          <h3>① Node.jsをインストールする</h3>
+          <a href="https://nodejs.org/ja/">Node.jsインストールページ</a>
+        </li>
+        <li>
+          <h3>② package.json,package-lock.jsonファイルを作成して、パッケージを使えるようにする。</h3>
+          <pre>
+            <span class="sky">[ ターミナル ]</span>
+
+            $ npm init
+          </pre>
+        </li>
+        <li>
+          <h3>③ gulpをインストールする</h3>
+          <pre>
+            <span class="sky">[ ターミナル ]</span>
+
+            $ sudo npm install -g gulp
+          </pre>
+        </li>
+      </ol>
+    </section>
+    <section>
+      <h2>gulpのタスクを作成していく</h2>
+      <ul class="desc-list">
+        <li>
+          <h3>☆ gulpのパッケージをインストール</h3>
+          <p>次の回(<a href="practice03.html">gulpを使ってタスクランナーを作成する
+</a>)のgulpfile.jsで、変数として保存していっている部分がパッケージになります。</p>
+          <pre>
+            <span class="sky">[ ターミナル ]</span>
+
+            $ npm install [パッケージ名] -—save-dev
+          </pre>
+        </li>
+        <li>
+          <h3>☆ gulp バージョン3=>4での注意点</h3>
+          <ul>
+            <li>
+              <h4>！ 実行の方法を決めなければならない。</h4>
+              <p>* gulp.series(...tasks) ... 順番に実行する<br>
+                * gulp.parallel(...tasks) ... 並列に実行をする</p>
+              <pre>
+                <span class="sky">[ gulpfile.js ]</span>
+
+                gulp.task('watch', function (done) {
+                  gulp.watch("./**/*.html", gulp.<span class="pink">series</span>('bs-reload'));
+                done();
+                });
+              </pre>
+            </li>
+            <li>
+              <h4>！ 関数を実行する命令を明記しなければならない。</h4>
+              <pre>
+                <span class="sky">[ gulpfile.js ]</span>
+
+                gulp.task('sass',function(done){
+                  <span class="com">// ここにタスクをかく</span>
+                  <span class="pink">done()</span>;
+                })
+              </pre>
+            </li>
+          </ul>
+        </li>
+      </ul>    
+    </section>
+  </main>
+  <script type="text/javascript" src="//typesquare.com/3/tsad/script/ja/typesquare.js?5b49521a4774449c972b1df2e90393a3"
+    charset="utf-8"></script>
+</body>
+</html>

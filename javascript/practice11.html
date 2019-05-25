@@ -4,48 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ress.css">
+  <link rel="stylesheet" href="../css/style.css">
   <title>ES6 オブジェクトリテラル</title>
 </head>
 <body>
-  <h1>ES6 オブジェクトリテラル</h1>
-  <section>
-    <h2>オブジェクトのkeyとvalueが同じ値の場合省略可能</h2>
-    <p>省略した項目は、上の方にした方が可読性がいい。省略可能部分は黄色。</p>
-    <pre>
-      function saveFile() {
-        $.ajax({
-          url <span class="yellow">: url</span>,
-          data <span class="yellow">: data</span>,
-          method: 'POST'
-        });
-      }
+  <main class="main">
+    <h1>ES6 オブジェクトリテラル</h1>
+    <section>
+      <h2>オブジェクトのkeyとvalueが同じ値の場合省略可能</h2>
+      <p>省略した項目は、上の方にした方が可読性がいい。省略可能部分は黄色。</p>
+      <pre>
+        function saveFile() {
+          $.ajax({
+            url <span class="yellow">: url</span>,
+            data <span class="yellow">: data</span>,
+            method: 'POST'
+          });
+        }
 
-      const url = 'http://fileload.com';
-      const data = { color: 'red' };
+        const url = 'http://fileload.com';
+        const data = { color: 'red' };
 
-      saveFile(url, data);
-    </pre>
-  </section>
-  <section>
-    <h2>オブジェクトのvalueがfunctionだった場合省略可能</h2>
-    <p>新しく本屋さんデータの配列を作る関数。省略可能部分は黄色。</p>
-    <pre>
-      function createBookShop ( inventory ) {
-        return {
-          inventory <span class="yellow">: inventory</span> ,
-
-          inventoryValue <span class="yellow">: function</span> ( ) {
-            return this . inventory . reduce ( ( total , book ) => total + book . price , 0 );
-          },
-
-          priceForTitle <span class="yellow">: function</span> ( title ) {
-            return this . inventory . find ( book => book . title === title ) . price;
-          }
-        };
-      }
+        saveFile(url, data);
       </pre>
-  </section>
+    </section>
+    <section>
+      <h2>オブジェクトのvalueがfunctionだった場合省略可能</h2>
+      <p>新しく本屋さんデータの配列を作る関数。省略可能部分は黄色。</p>
+      <pre>
+        function createBookShop ( inventory ) {
+          return {
+            inventory <span class="yellow">: inventory</span> ,
+
+            inventoryValue <span class="yellow">: function</span> ( ) {
+              return this . inventory . reduce ( ( total , book ) => total + book . price , 0 );
+            },
+
+            priceForTitle <span class="yellow">: function</span> ( title ) {
+              return this . inventory . find ( book => book . title === title ) . price;
+            }
+          };
+        }
+        </pre>
+    </section>
+  </main>
+  <script type="text/javascript" src="//typesquare.com/3/tsad/script/ja/typesquare.js?5b49521a4774449c972b1df2e90393a3"
+    charset="utf-8"></script>
 </body>
 </html>

@@ -10,8 +10,16 @@ html{
   font-size: 62.5%;
   background: $base;
 }
-*{
-  font-family: $ds;
+
+h1,h2{
+  font-family: "DSそよ風";
+}
+
+pre,h3,h4,p,li,a{
+  font-family: "A1ゴシック L";
+}
+
+h1,h2,h3,h4,p,li,a{
   color: $letter;
 }
 
@@ -37,10 +45,11 @@ html{
 
 .main{
   &__desc{
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1.8;
+    font-family: "A1ゴシック L";
     strong{
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
   }
   &__title{
@@ -76,7 +85,7 @@ html{
     margin: 0 0 42px 10px;
     overflow: hidden;
     transition: ease 0.2s;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     li{
       margin: 16px 0;
     }
@@ -93,8 +102,85 @@ html{
   width: 100%;
   height: 30px;
   line-height: 30px;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   background: $main;
   text-align: center;
   color: #fff;
+  font-family: "DSそよ風";
+}
+
+
+pre{
+  margin-top: 10px;
+  padding-top: 20px;
+  background: #333;
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+.sky{
+  color: #6ad6ff;
+}
+.pink{
+  color: pink;
+}
+.yellow{
+  color: #dbdfa0;
+}
+.green{
+  color: #aed298;
+}
+.com{
+  display: inline-block;
+  margin-top: 8px;
+  color: #5a9e4e;
+}
+
+.main{
+  margin-bottom: 80px;
+  h1{
+    margin-top: 60px;
+    font-size: 3rem;
+  }
+}
+
+section{
+  h2{
+    margin: 50px 0 14px;
+    font-size: 2.2rem;
+  }
+  p{
+    font-size: 1.6rem;
+  }
+  li{
+    font-size: 1.6rem;
+    list-style-position: inside;
+  }
+}
+.desc-list{
+  margin-top: 30px;
+  list-style-type: none;
+  >li{
+    margin: 40px 0;
+    h3{
+      margin-bottom: 20px;
+    }
+  }
+  ul{
+    list-style-type: none;
+    li{
+      margin: 30px 0;
+    }
+  }
+}
+
+.desc-node{
+  p{
+    margin-top: 40px;
+  }
+}
+.app-area{
+  margin: 24px 0;
+  padding: 10px;
+  border: dotted 4px $accent;
 }

@@ -4,55 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ress.css">
+  <link rel="stylesheet" href="../css/style.css">
   <title>find - 一致するものを一件だけ見つける</title>
 </head>
 <body>
-  <h1>find - 一致するものを一件だけ見つける</h1>
-  <section>
-    <h2>findの使い方</h2>
-    <p>returnで新しい配列にして返してくれる。</p>
-    <pre>
-      var users = [
-        { name : '太郎' },
-        { name : '二郎' },
-        { name : '三郎' },
-      ]
-      
-      users . <span class="sky">find</span> ( function ( user ) {
-        return user . name == '二郎';
-      });
-      ーーーーー
-      { name : '二郎' }
+  <main class="main">
+    <h1>find - 一致するものを一件だけ見つける</h1>
+    <section>
+      <h2>findの使い方</h2>
+      <p>returnで新しい配列にして返してくれる。</p>
+      <pre>
+        var users = [
+          { name : '太郎' },
+          { name : '二郎' },
+          { name : '三郎' },
+        ]
+        
+        users . <span class="sky">find</span> ( function ( user ) {
+          return user . name == '二郎';
+        });
+        ーーーーー
+        { name : '二郎' }
 
-    </pre>
-  </section>
-  <section>
-    <h2>関数を作って使ってみる</h2>
-    <p>returnで条件と一致したものを返してくれる。</p>
-    <pre>
-      var <span class="pink">posts</span> = [
-        { id : 1 , title : '古い投稿' },
-        { id : 2 , title : '新しい投稿' }
-      ];
-      
-      var <span class="yellow">comment</span> = { postId : 2, content : 'いいね！' }
-      
-      function postForComment( posts, comment ) {
-        return posts . <span class="sky">find</span> ( function ( post ) {
-          return post . id === comment . postId;
-        })
-      }
-      
-      postForComment ( <span class="pink">posts</span> , <span class="yellow">comment</span> );
-
-      ーーーーー
-      { id : 2 , title : '新しい投稿' }
-  
       </pre>
-  </section>
+    </section>
+    <section>
+      <h2>関数を作って使ってみる</h2>
+      <p>returnで条件と一致したものを返してくれる。</p>
+      <pre>
+        var <span class="pink">posts</span> = [
+          { id : 1 , title : '古い投稿' },
+          { id : 2 , title : '新しい投稿' }
+        ];
+        
+        var <span class="yellow">comment</span> = { postId : 2, content : 'いいね！' }
+        
+        function postForComment( posts, comment ) {
+          return posts . <span class="sky">find</span> ( function ( post ) {
+            return post . id === comment . postId;
+          })
+        }
+        
+        postForComment ( <span class="pink">posts</span> , <span class="yellow">comment</span> );
 
-
+        ーーーーー
+        { id : 2 , title : '新しい投稿' }
+    
+        </pre>
+    </section>
+  </main>
+  <script type="text/javascript" src="//typesquare.com/3/tsad/script/ja/typesquare.js?5b49521a4774449c972b1df2e90393a3"
+    charset="utf-8"></script>
 </body>
 </html>
